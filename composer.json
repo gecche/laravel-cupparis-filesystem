@@ -23,7 +23,7 @@
 
         ],
         "psr-4": {
-            "Gecche\\Cupparis\\Filesystem": "src"
+            "Gecche\\Cupparis\\Filesystem\\": "src"
         },
         "files": [
 
