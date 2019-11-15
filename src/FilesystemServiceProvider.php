@@ -4,6 +4,7 @@ namespace Gecche\Cupparis\Filesystem;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 
@@ -30,7 +31,7 @@ class FilesystemServiceProvider extends ServiceProvider
     {
 
         Filesystem::macro('deleteFiles', function ($pattern,$flags = 0) {
-            $this->delete($this->glob($pattern,$flags));
+            File::delete(File::glob($pattern,$flags));
         });
 
         Filesystem::macro('mimeFromGuesser', function ($path) {
@@ -47,7 +48,7 @@ class FilesystemServiceProvider extends ServiceProvider
 
         Filesystem::macro('getIconaMime', function ($path, $iconeMimesArray = [], $default = 'default.png') {
 
-            $mimetype = $this->mimeFromGuesser($path);
+            $mimetype = static::mimeFromGuesser($path);
             if ($mimetype === false) {
                 return $default;
             }
